@@ -5,8 +5,7 @@ module.exports = function(pathinfo, contours) {
     var z = pi0.z;
     var i;
 
-    // histogram2dcontour does not coerce `contours.type`
-    switch(contours.type || 'levels') {
+    switch(contours.type) {
         case 'levels':
             // Why (just) use z[0][0] and z[0][1]?
             //

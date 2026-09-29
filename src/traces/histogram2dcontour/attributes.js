@@ -30,6 +30,7 @@ module.exports = extendFlat(
         autocontour: contourAttrs.autocontour,
         ncontours: contourAttrs.ncontours,
         contours: contourAttrs.contours,
+        fillcolor: contourAttrs.fillcolor,
         line: {
             color: contourAttrs.line.color,
             width: extendFlat({}, contourAttrs.line.width, {

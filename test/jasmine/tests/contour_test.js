@@ -115,6 +115,18 @@ describe('contour defaults', function() {
         expect(traceOut.xcalendar).toBe('coptic');
         expect(traceOut.ycalendar).toBe('ethiopian');
     });
+
+    it('should coerce contours.type for histogram2dcontour', () => {
+        const gd = {data: [
+            {type: 'histogram2dcontour', x: [1, 2], y: [1, 2]},
+            {type: 'histogram2dcontour', x: [1, 2], y: [1, 2], contours: {type: 'constraint'}}
+        ]};
+        supplyAllDefaults(gd);
+
+        expect(gd._fullData[0].contours.type).toBe('levels');
+        expect(gd._fullData[1].contours.type).toBe('constraint');
+        expect(gd._fullData[1].contours.operation).toBe('=');
+    });
 });
 
 describe('contour makeColorMap', function() {
@@ -666,6 +678,22 @@ describe('contour plotting and editing', function() {
             fills.each((d) => {
                 expect(d.prefixBoundary).toBe(true, `level ${d.level}`);
             });
+        })
+        .then(done, done.fail);
+    });
+
+    it('draws histogram2dcontour constraint fills', (done) => {
+        Plotly.newPlot(gd, [{
+            type: 'histogram2dcontour',
+            x: [1, 2, 3, 4, 1, 2, 3, 4],
+            y: [1, 1, 1, 1, 2, 2, 2, 2],
+            z: [-10, -50, -100, -150, -10, -50, -100, -150],
+            histfunc: 'avg',
+            contours: {type: 'constraint', operation: '<', value: -60}
+        }])
+        .then(() => {
+            expect(gd._fullData[0].contours.type).toBe('constraint');
+            expect(d3SelectAll('.contourfill path').size()).toBe(1);
         })
         .then(done, done.fail);
     });

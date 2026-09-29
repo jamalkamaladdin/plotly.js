@@ -38665,6 +38665,11 @@
           "editType": "calc",
           "valType": "data_array"
         },
+        "fillcolor": {
+          "description": "Sets the fill color if `contours.type` is *constraint*. Defaults to a half-transparent variant of the line color, marker color, or marker line color, whichever is available.",
+          "editType": "calc",
+          "valType": "color"
+        },
         "histfunc": {
           "description": "Specifies the binning function used for this histogram trace. If *count*, the histogram values are computed by counting the number of values lying inside each bin. If *sum*, *avg*, *min*, *max*, the histogram values are computed using the sum, the average, the minimum or the maximum of the values lying inside each bin respectively.",
           "dflt": "count",
